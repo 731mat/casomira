@@ -1,0 +1,65 @@
+{% extends "layout.html" %}
+
+{% block title %}
+  <h2>Edit people</h2>
+{% endblock %}
+
+{% block body %}
+  <div class="row">
+    <div class="col-sm-12">
+      <form action="{{ url_for('people_edit', people_id=people['id']) }}" method="POST" class="form-horizontal">
+        <div class="form-group">
+          <label for="startNumber" class="control-label col-sm-2">Startovni čislo:</label>
+          <div class="col-sm-4">
+            <input type="number" id="startNumber" name="startNumber" class="form-control" value="{{ people['startNumber'] }}">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="nameFirst" class="control-label col-sm-2">Jmeno:</label>
+          <div class="col-sm-4">
+            <input type="text" id="nameFirst" name="nameFirst" class="form-control" value="{{ people['nameFirst'] }}">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="nameLast" class="control-label col-sm-2">Přijmeni:</label>
+          <div class="col-sm-4">
+            <input type="text" id="nameLast" name="nameLast" class="form-control" value="{{ people['nameLast'] }}">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="birth" class="control-label col-sm-2">datum:</label>
+          <div class="col-sm-4">
+            <input type="date" id="birth" name="birth" class="form-control" value="{{ people['birth'] }}">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="categoryId" class="control-label col-sm-2">Narození:</label>
+          <div class="col-sm-4">
+            <select class="form-control" id="categoryId" name="categoryId">
+                {% for category in categorys %}
+                    <option value="{{ category['id'] }}" {% if category['id'] == people['category']%}selected{% endif %}>{{ category['name'] }}</option>
+                {% endfor %}
+              </select>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="pay" class="control-label col-sm-2">zaplaceno:</label>
+          <div class="col-sm-4">
+            <input type='hidden' value='0' name='pay'>
+            <input type="checkbox" id="pay" name="pay" value="1" {% if people['pay'] == 1%}checked{%endif%}></label>
+          </div>
+        </div>
+
+          <div class="form-group">
+          <div class="col-sm-offset-2 col-sm-4">
+            <button type="submit" class="btn btn-primary">Submit</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+{% endblock %}

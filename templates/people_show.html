@@ -1,0 +1,68 @@
+{% extends "layout.html" %}
+
+{% block title %}
+  <h2>Lide <a href="{{ url_for('people_add') }}" class="btn btn-success">New</a></h2>
+{% endblock %}
+
+{% block body %}
+  <div class="row">
+    <div class="btn-group btn-group-justified">
+        {% for category in categorys %}
+            <a href="{{ url_for('people_category_show', category_id=category['id']) }}" class="btn btn-primary">{{ category['name'] }}</a>
+        {% endfor %}
+        <a href="{{ url_for('people_show') }}" class="btn btn-warning">Vše</a>
+    </div>
+<br>
+  </div>
+  <div class="row">
+
+		<script type="text/javascript" charset="utf-8">
+			$(document).ready(function() {
+				$('#table_people').DataTable({ "pageLength": 25 });
+
+			} );
+		</script>
+
+      <table id="table_people" class="display">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>st. číslo</th>
+                <th>Jmeno</th>
+                <th>Přijemní</th>
+                <th>narození</th>
+                <th>kategorie</th>
+                <th>zaplatil</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for people in peoples %}
+        <tr>
+            <td>{{ people['id'] }}</td>
+            <td>{{ people['startNumber'] }}</td>
+            <td>{{ people['nameFirst'] }}</td>
+            <td>{{ people['nameLast'] }}</td>
+            <td>{{ people['bith'] }}</td>
+            <td>{{ people['category'] }}</td>
+            <td>{{ people['pay'] }}</td>
+            <td>
+                 <div class="pull-right">
+                  <a href="{{ url_for('people_edit', people_id=people['id']) }}"><span class="glyphicon glyphicon-pencil"></span></a>
+                  <a href="{{ url_for('people_delete', people_id=people['id']) }}" onClick="return confirm_delete('{{ people['nameFirst'] }}');"><span class="glyphicon glyphicon-trash"></span></a>
+                 </div>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+  </div>
+
+
+  <script type="text/javascript">
+    function confirm_delete(project_name) {
+      return confirm("Are you sure you want to delete "+project_name+"?");
+    }
+  </script>
+{% endblock body %}

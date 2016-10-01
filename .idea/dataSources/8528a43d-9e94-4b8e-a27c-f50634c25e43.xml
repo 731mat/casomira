@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataSource name="main [2]">
+  <database-model serializer="dbm" rdbms="SQLITE" format-version="2.6">
+    <schema id="1">
+      <visible>1</visible>
+    </schema>
+    <table id="2" parent="1" name="category"/>
+    <table id="3" parent="1" name="people"/>
+    <table id="4" parent="1" name="sqlite_sequence"/>
+    <column id="5" parent="2" name="id">
+      <data-type>INTEGER(0,-1)|4</data-type>
+    </column>
+    <column id="6" parent="2" name="name">
+      <mandatory>1</mandatory>
+      <data-type>VARCHAR(0,-1)|12</data-type>
+    </column>
+    <key id="7" parent="2">
+      <columns>id</columns>
+      <primary>1</primary>
+    </key>
+    <column id="8" parent="3" name="id">
+      <data-type>INTEGER(0,-1)|4</data-type>
+    </column>
+    <column id="9" parent="3" name="nameFirst">
+      <mandatory>1</mandatory>
+      <data-type>VARCHAR(0,-1)|12</data-type>
+    </column>
+    <column id="10" parent="3" name="nameLast">
+      <mandatory>1</mandatory>
+      <data-type>VARCHAR(0,-1)|12</data-type>
+    </column>
+    <column id="11" parent="3" name="birth">
+      <data-type>DATE(0,-1)|12</data-type>
+    </column>
+    <column id="12" parent="3" name="categoryId">
+      <mandatory>1</mandatory>
+      <data-type>INTEGER(0,-1)|4</data-type>
+    </column>
+    <column id="13" parent="3" name="pay">
+      <data-type>INTEGER(0,-1)|4</data-type>
+    </column>
+    <key id="14" parent="3">
+      <columns>id</columns>
+      <primary>1</primary>
+    </key>
+    <foreign-key id="15" parent="3" name="#FAKE_people_1">
+      <name-surrogate>1</name-surrogate>
+      <columns>categoryId</columns>
+      <deferrable>1</deferrable>
+      <initially-deferred>1</initially-deferred>
+      <ref-key>~.category.#1</ref-key>
+      <cascade-update-rule>no_action</cascade-update-rule>
+      <cascade-delete-rule>no_action</cascade-delete-rule>
+    </foreign-key>
+    <column id="16" parent="4" name="name">
+      <data-type>(0,-1)|12</data-type>
+    </column>
+    <column id="17" parent="4" name="seq">
+      <data-type>(0,-1)|12</data-type>
+    </column>
+  </database-model>
+</dataSource>
