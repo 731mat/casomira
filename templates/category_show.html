@@ -1,0 +1,51 @@
+{% extends "layout.html" %}
+
+{% block title %}
+  <h2>Lide <a href="{{ url_for('category_add') }}" class="btn btn-success">New</a></h2>
+{% endblock %}
+
+{% block body %}
+  <div class="row">
+
+		<script type="text/javascript" charset="utf-8">
+			$(document).ready(function() {
+				$('#table_category').DataTable({ "pageLength": 100, "bPaginate": false });
+
+			} );
+		</script>
+
+      <table id="table_category" class="display">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>name</th>
+                <th>Kola</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for category in categorys %}
+        <tr>
+            <td>{{ category['id'] }}</td>
+            <td>{{ category['name'] }}</td>
+            <td>{{ category['laps'] }}</td>
+            <td>
+                 <div class="pull-right">
+                  <a href="{{ url_for('category_edit', category_id=category['id']) }}"><span class="glyphicon glyphicon-pencil"></span></a>
+                  <a href="{{ url_for('category_delete', category_id=category['id']) }}" onClick="return confirm_delete('{{ category['name'] }}');"><span class="glyphicon glyphicon-trash"></span></a>
+                 </div>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+  </div>
+
+
+  <script type="text/javascript">
+    function confirm_delete(project_name) {
+      return confirm("Are you sure you want to delete "+project_name+"?");
+    }
+  </script>
+{% endblock body %}

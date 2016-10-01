@@ -1,0 +1,31 @@
+{% extends "layout.html" %}
+
+{% block title %}
+  <h2>ADD category</h2>
+{% endblock %}
+
+{% block body %}
+  <div class="row">
+    <div class="col-sm-12">
+      <form action="{{ url_for('category_edit', category_id=category['id']) }}" method="POST" class="form-horizontal">
+        <div class="form-group">
+          <label for="name" class="control-label col-sm-2">Nazev Kategorie:</label>
+          <div class="col-sm-4">
+            <input type="name" id="name" name="name" class="form-control" value="{{ category['name'] }}">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="laps" class="control-label col-sm-2">KOla:</label>
+          <div class="col-sm-4">
+            <input type="number" id="laps" name="laps" class="form-control" value="{{ category['laps'] }}">
+          </div>
+        </div>
+          <div class="form-group">
+          <div class="col-sm-offset-2 col-sm-4">
+            <button type="submit" class="btn btn-primary">Submit</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+{% endblock %}

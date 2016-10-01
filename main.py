@@ -29,8 +29,8 @@ def teardown_request(exception):
         db.close()
 
 @app.route('/')
-def zakladni():
-    pass
+def index():
+    return render_template('index.html')
 
 @app.route('/people/')
 def people_show():
@@ -100,6 +100,46 @@ def people_add():
         categorys = [dict(id=row[0], name=row[1]) for row in cur.fetchall()]
         return render_template('people_add.html',categorys=categorys)
 
+
+@app.route('/category')
+def category_show():
+    #katogorie -----
+    cur = g.db.execute('SELECT * FROM category')
+    categorys = [dict(id=row[0], name=row[1],laps=row[2]) for row in cur.fetchall()]
+    return render_template('category_show.html', categorys=categorys)
+
+@app.route('/category/edit/<int:category_id>',methods=['GET', 'POST'])
+def category_edit(category_id):
+    if request.method == 'POST':
+        g.db.execute('update category set name=(?), laps=(?) where (id)=(?)',
+                     [request.form['name'], request.form['laps'], category_id])
+        g.db.commit()
+        flash('category successfully modified.', 'success')
+        return redirect(url_for('people_show'))
+    else:
+        cur = g.db.execute('SELECT * FROM category where (id)=(?)', [category_id])
+        result = cur.fetchall()[0]
+        category = dict(id=result[0], name=result[1], laps=result[2])
+        return render_template('category_edit.html',category=category)
+
+@app.route('/category/delete/<int:category_id>',methods=['GET', 'POST'])
+def category_delete(category_id):
+    g.db.execute('delete from category where (id)=(?)', [category_id])
+    g.db.commit()
+    flash('category was deleted!', 'warning')
+    return redirect(url_for('category_show'))
+
+
+@app.route('/category/add/',methods=['GET', 'POST'])
+def category_add():
+    if request.method == 'POST':
+        g.db.execute('insert into category (name, laps) VALUES (?,?)',
+                     [request.form['name'], request.form['laps']])
+        g.db.commit()
+        flash('category ADD.', 'success')
+        return redirect(url_for('category_show'))
+    else:
+        return render_template('category_add.html')
 
 
 

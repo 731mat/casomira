@@ -1,0 +1,12 @@
+{% extends "layout.html" %}
+
+{% block title %}
+  <h2>časomira</h2>
+{% endblock %}
+
+{% block body %}
+<div class="btn-group btn-group-justified">
+  <a href="{{ url_for('people_show') }}" class="btn btn-success">People</a>
+  <a href="{{ url_for('category_show') }}" class="btn btn-warning">Category</a>
+</div>
+{% endblock %}
